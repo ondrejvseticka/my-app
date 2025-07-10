@@ -53,10 +53,10 @@ export default function EmailManager() {
   const onSend = async (data: FormData) => {
     try {
       let html = "";
-      if (emailEditorRef.current?.editor) {
+      if (emailEditorRef.current && emailEditorRef.current.editor) {
         // Get HTML from Unlayer editor
         await new Promise<void>((resolve) => {
-          emailEditorRef.current!.editor.exportHtml((editorData) => {
+          emailEditorRef.current!.editor!.exportHtml((editorData) => {
             html = editorData.html;
             resolve();
           });
@@ -81,7 +81,7 @@ export default function EmailManager() {
   };
 
   const onEditorReady = () => {
-    const templateJson = {
+    const templateJson: any = {
       body: {
         rows: [
           {
@@ -107,6 +107,10 @@ export default function EmailManager() {
             ],
           },
         ],
+      },
+      counters: {
+        text: 1,
+        button: 1,
       },
     };
     emailEditorRef.current?.editor?.loadDesign(templateJson);
