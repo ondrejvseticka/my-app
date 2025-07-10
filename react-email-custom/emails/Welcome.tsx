@@ -17,26 +17,26 @@ interface WelcomeEmailProps {
 
 export default function WelcomeEmail({
   username,
-  message = "Thank you for joining our platform!",
+  message = "Thank you for joining rubujakcyp.online!",
 }: WelcomeEmailProps) {
   return (
     <Html>
       <Head />
-      <Preview>Welcome to our platform!</Preview>
+      <Preview>Welcome to rubujakcyp.online!</Preview>
       <Body style={{ fontFamily: "Arial, sans-serif", padding: "20px" }}>
         <Container>
           <Section>
             <Text>Hello, {username}!</Text>
             <Text>{message}</Text>
             <Button
-              href="https://yourapp.com"
+              href="https://rubujakcyp.online>"
               style={{
                 background: "#007bff",
                 color: "#fff",
                 padding: "10px 20px",
               }}
             >
-              Visit Dashboard
+              Visit rubujakcyp.online
             </Button>
           </Section>
         </Container>

@@ -22,30 +22,9 @@ export default function EmailManager() {
   } = useForm<FormData>({
     resolver: zodResolver(formSchema),
   });
-  const [preview, setPreview] = useState<string>("");
+
   const [status, setStatus] = useState<string>("");
   const emailEditorRef = useRef<EditorRef>(null);
-
-  const onPreview = async (data: FormData) => {
-    try {
-      if (emailEditorRef.current?.editor) {
-        emailEditorRef.current.editor.exportHtml(async (editorData) => {
-          const { html } = editorData;
-          setPreview(html);
-          setStatus("");
-        });
-      } else {
-        const response = await axios.post("/api/email/preview", {
-          username: data.username,
-          message: data.message,
-        });
-        setPreview(response.data.html);
-        setStatus("");
-      }
-    } catch (error) {
-      setStatus("Failed to load preview");
-    }
-  };
 
   const onSend = async (data: FormData) => {
     try {
@@ -165,13 +144,6 @@ export default function EmailManager() {
           <div className="flex gap-3">
             <button
               type="button"
-              onClick={handleSubmit(onPreview)}
-              className="px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-md hover:from-blue-600 hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-            >
-              Preview Email
-            </button>
-            <button
-              type="button"
               onClick={handleSubmit(onSend)}
               className="px-4 py-2 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-md hover:from-green-600 hover:to-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 transition"
             >
@@ -198,15 +170,6 @@ export default function EmailManager() {
           onReady={onEditorReady}
           style={{ height: "600px" }}
         />
-        {preview && (
-          <div className="mt-6">
-            <h2 className="text-xl font-bold text-gray-800 mb-2">Preview</h2>
-            <iframe
-              srcDoc={preview}
-              className="w-full h-96 border border-gray-200 rounded-md shadow-sm"
-            />
-          </div>
-        )}
       </div>
     </div>
   );
