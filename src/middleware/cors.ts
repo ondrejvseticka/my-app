@@ -4,7 +4,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 export function cors(
   req: NextApiRequest,
   res: NextApiResponse,
-  next: () => void
+  next: () => void,
 ) {
   const allowedOrigins = [
     "http://localhost:3002",

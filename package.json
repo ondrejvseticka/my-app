@@ -5,15 +5,18 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "email-dev": "email dev --dir react-email-custom/emails"
+    "email-dev": "email dev --dir react-email-custom/emails",
+    "eslint": "eslint .",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "@hookform/resolvers": "^5.1.1",
-    "@react-email/components": "^0.0.12",
-    "@react-email/render": "^0.0.12",
+    "@react-email/components": "^0.3.2",
+    "@react-email/render": "^1.1.3",
     "@tailwindcss/postcss": "^4.1.11",
     "autoprefixer": "^10.4.21",
     "axios": "^1.6.7",
+    "lucide-react": "^0.525.0",
     "next": "^14.2.3",
     "postcss": "^8.5.6",
     "react": "^18.2.0",
@@ -30,6 +33,9 @@
     "@types/node": "^20.11.16",
     "@types/react": "^18.2.55",
     "react-email": "^4.1.1",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "eslint": "^8.57.0",
+    "prettier": "^3.2.5",
+    "eslint-config-next": "^14.2.3"
   }
 }

@@ -1,39 +1,58 @@
-// src/react-email-custom/emails/Welcome.tsx
 import {
-  Button,
   Html,
   Head,
-  Preview,
   Body,
   Container,
   Section,
   Text,
+  Button,
 } from "@react-email/components";
 
-interface WelcomeEmailProps {
-  username: string;
-  message?: string;
-}
-
 export default function WelcomeEmail({
-  username,
-  message = "Thank you for joining rubujakcyp.online!",
-}: WelcomeEmailProps) {
+  username = "User",
+  message = "Welcome to our platform!",
+}) {
   return (
-    <Html>
-      <Head />
-      <Preview>Welcome to rubujakcyp.online!</Preview>
-      <Body style={{ fontFamily: "Arial, sans-serif", padding: "20px" }}>
-        <Container>
+    <Html lang="en">
+      <Head>
+        <meta httpEquiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="x-apple-disable-message-reformatting" />
+      </Head>
+      <Body
+        style={{
+          fontFamily: "Arial, sans-serif",
+          padding: "20px",
+          backgroundColor: "#ffffff",
+          margin: 0,
+        }}
+      >
+        <Container
+          style={{ maxWidth: "37.5em", margin: "0 auto", width: "100%" }}
+        >
           <Section>
-            <Text>Hello, {username}!</Text>
-            <Text>{message}</Text>
+            <Text
+              style={{ fontSize: "14px", lineHeight: "24px", margin: "16px 0" }}
+            >
+              Hello, {username}!
+            </Text>
+            <Text
+              style={{ fontSize: "14px", lineHeight: "24px", margin: "16px 0" }}
+            >
+              {message}
+            </Text>
             <Button
-              href="https://rubujakcyp.online>"
+              href="https://rubujakcyp.online"
               style={{
-                background: "#007bff",
-                color: "#fff",
+                backgroundColor: "#007bff",
+                color: "#ffffff",
                 padding: "10px 20px",
+                textDecoration: "none",
+                display: "inline-block",
+                maxWidth: "100%",
+                fontSize: "14px",
+                lineHeight: "100%",
+                textAlign: "center",
               }}
             >
               Visit rubujakcyp.online

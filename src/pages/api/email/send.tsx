@@ -1,17 +1,14 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { Resend } from "resend";
-import { render } from "@react-email/render";
-import sanitizeHtml from "sanitize-html";
-import WelcomeEmail from "../../../../react-email-custom/emails/Welcome";
+
 import { cors } from "../../../middleware/cors";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ) {
-  // Apply CORS middleware
   await new Promise<void>((resolve) => cors(req, res, resolve));
 
   if (req.method !== "POST") {
@@ -19,48 +16,27 @@ export default async function handler(
     return res.status(405).json({ error: `Method ${req.method} not allowed` });
   }
 
-  const { username, message, to, html } = req.body as {
+  const { to, html } = req.body as {
     username?: string;
     message?: string;
     to?: string;
     html?: string;
   };
 
-  if (!to || (!username && !html)) {
-    return res.status(400).json({
-      error: "Missing required fields: to and either username or html",
-    });
+  if (!to) {
+    return res.status(400).json({ error: "Missing required field: to" });
   }
 
   try {
-    let emailHtml =
-      html ||
-      render(<WelcomeEmail username={username || "User"} message={message} />);
-    if (html && username && message) {
-      emailHtml = sanitizeHtml(
-        html
-          .replace("{{username}}", username || "User")
-          .replace("{{message}}", message || ""),
-        {
-          allowedTags: sanitizeHtml.defaults.allowedTags.concat([
-            "img",
-            "a",
-            "span",
-          ]),
-          allowedAttributes: {
-            ...sanitizeHtml.defaults.allowedAttributes,
-            a: ["href", "target"],
-            img: ["src", "alt"],
-          },
-        }
-      );
+    if (!html) {
+      throw new Error("No html was provided to send email");
     }
 
     const { data, error } = await resend.emails.send({
       from: "Demo App <no-reply@rubujakcyp.online>",
       to: [to],
       subject: "Welcome to Our Platform!",
-      html: emailHtml,
+      html,
     });
 
     if (error) {

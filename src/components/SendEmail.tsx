@@ -10,15 +10,16 @@ export default function SendEmail() {
 
   const sendEmail = async () => {
     try {
-      const response = await axios.post(
+      await axios.post(
         `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/email/send`,
         {
           username,
           to,
-        }
+        },
       );
       setStatus("Email sent successfully!");
     } catch (error) {
+      console.error("Failed to send email - ", error);
       setStatus("Failed to send email.");
     }
   };
